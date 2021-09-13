@@ -1,0 +1,53 @@
+
+Query all columns for all American cities in CITY with populations larger than 100,000. The CountryCode for America is USA.
+SELECT * FROM CITY WHERE COUNTRYCODE = 'USA' AND POPULATION > 100000;
+Query the names of all American cities in CITY with populations larger than 120,000. The CountryCode for America is USA.
+SELECT NAME FROM CITY WHERE COUNTRYCODE = 'USA' AND POPULATION > 120000;
+Query all columns for every row in the CITY table.
+SELECT * FROM CITY;
+Query all columns for a city in CITY with the ID 1661.
+SELECT * FROM CITY WHERE ID = 1661; 
+Query the details for all the Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+SELECT * FROM CITY WHERE COUNTRYCODE = 'JPN';        
+Query the the names of all the Japanese cities in CITY. The COUNTRYCODE for Japan is JPN.
+SELECT NAME FROM CITY WHERE COUNTRYCODE = 'JPN';        
+Query a list of CITY and STATE from STATION.
+SELECT CITY,STATE FROM STATION;       
+Query a list of CITY names from STATION with even ID numbers only. You may print the results in any order, but must exclude duplicates from your answer.
+Even no divisible by 2 only so apply mod 2 = 0
+SELECT DISTINCT CITY FROM STATION WHERE MOD(ID,2)=0 ORDER BY CITY ASC; // MySQL
+OR
+Select DISTINCT CITY FROM STATION WHERE where id % 2 = 0 ORDER BY CITY ASC  SQL SERVER
+Let NUM be the number of CITY entries in STATION, and NUMunique be the number of unique cities. Query the value of NUM−NUMunique from STATION.
+In other words, query the number of non-unique CITY names in STATION by subtracting the number of unique CITY entries in the table from the total number of CITY entries in the table.
+SELECT COUNT(CITY) - COUNT(DISTINCT CITY) FROM STATION;       
+Query the two cities in STATION with the shortest and longest CITY names, as well as their respective lengths (i.e.: number of characters in the name). If there is more than one smallest or largest city, choose the one that comes first when ordered alphabetically.
+Let's say that CITY only has four entries: DEF, ABC, PQRS and WXY
+Sample Output
+ABC 3
+PQRS 4
+Explanation
+When ordered alphabetically, the CITY names are listed as ABC, DEF, PQRS, and WXY, with the respective lengths 3,3,4,3,3,4, and 33. The longest-named city is obviously PQRS, but there are 33 options for shortest-named city; we choose ABC, because it comes first alphabetically.
+Declare @smallcity int,@largecity int
+Select @smallcity=min(len(city)) from station
+Select @largecity=max(len(city)) from station
+Select top 1 city as smallcityname , len(city) from station where len(city)=@smallcity order by city asc
+Select top 1 city as largecityname , len(city) from station where len(city)=@largecity order by city asc  
+Query the list of CITY names starting with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+Select distinct city from station where Substring(city,1,1) in ('a','e','i','o','u')      
+Query the list of CITY names ending with vowels (a, e, i, o, u) from STATION. Your result cannot contain duplicates.
+Select distinct city from station where Substring(reverse(city),1,1) in ('a','e','i','o','u')
+Query the list of CITY names from STATION which have vowels (i.e., a, e, i, o, and u) as both their first and last characters. Your result cannot contain duplicates
+Select distinct city from station where Substring(city,1,1) in ('a','e','i','o','u') and Substring(reverse(city),1,1) in ('a','e','i','o','u')
+Query the list of CITY names from STATION that do not start with vowels. Your result cannot contain duplicates.
+Select distinct city from station where Substring(city,1,1)  not in ('a','e','i','o','u')      
+Query the list of CITY names from STATION that do not end with vowels. Your result cannot contain duplicates.
+Select distinct city from station where Substring(reverse(city),1,1) not in ('a','e','i','o','u')
+Query the list of CITY names from STATION that either do not start with vowels or do not end with vowels. Your result cannot contain duplicates.
+Select distinct city from station where Substring(city,1,1) not in ('a','e','i','o','u') or Substring(reverse(city),1,1) not in ('a','e','i','o','u')
+Query the list of CITY names from STATION that do not start with vowels and do not end with vowels. Your result cannot contain duplicates.
+SELECT DISTINCT CITY FROM STATION  WHERE CITY NOT LIKE '[AEIOU]%' and CITY NOT LIKE '%[aeiou]'
+Query the Name of any student in STUDENTS who scored higher than 75 Marks. Order your output by the last three characters of each name. If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+select name from students where marks > 75 order by right(name,3),id
+Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+select name from employee order by name
